@@ -1,6 +1,8 @@
 package com.example.complaint_reporting_backend.controller;
 
+import com.example.complaint_reporting_backend.dao.ComplaintDao;
 import com.example.complaint_reporting_backend.dao.UserDao;
+import com.example.complaint_reporting_backend.model.Complaint;
 import com.example.complaint_reporting_backend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,6 +17,8 @@ import java.util.List;
 public class ComplaintController {
     @Autowired
     private UserDao udao;
+    @Autowired
+    private ComplaintDao cdao;
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/userregister",consumes = "application/json",produces = "application/json")
     public String userRegister(@RequestBody User u)
@@ -49,4 +53,13 @@ public class ComplaintController {
     public List<User> userGetById(@RequestBody User u){
         return (List<User>) udao.getUser(u.getId());
     }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/addUserComplaint",consumes = "application/json",produces = "application/json")
+    public String addComplaint(@RequestBody Complaint c){
+        cdao.save(c);
+        return "{\"status\":\"success\"}";
+    }
+
+
 }
