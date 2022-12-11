@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ComplaintController {
@@ -65,6 +66,8 @@ public class ComplaintController {
         System.out.println(c.getUserId());
         return (List<Complaint>) cdao.viewComplaint(c.getUserId());
     }
-
-
+    @CrossOrigin(origins = "*")
+    @GetMapping(path = "/adminviewallcomplaints")
+    public List<Map<String,String>> viewProduct(){
+        return (List<Map<String,String>>) cdao.viewAllComplaints();}
 }
